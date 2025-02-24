@@ -1,1 +1,28 @@
-<p>form works!</p>
+<form [formGroup]="form" (submit)="processForm()">
+    <table>
+        <tr>
+            <td>Q</td>
+            <td><input type="text" formControlName="q"></td>
+        </tr>
+        <tr>
+            <td>Limit</td>
+            <td>
+                <input type="range" formControlName="limit" min="1" max="25">
+                <span>{{ form.value.limit }}</span>
+            </td>
+        </tr>
+        <tr>
+            <td>Rating</td>
+            <td class="radio">
+                @for (r of FORM_RATING; track $index) {
+                    <span>{{r}} <input type="radio" formControlName="rating" [value]="r"></span>
+                }
+            </td>
+        </tr>
+        <tr>
+            <td> <button type="submit" (click)="clearForm()">Clear</button> </td>
+            <td></td>
+            <td> <button type="submit" [disabled]="invalidForm()">Search</button> </td>
+        </tr>
+    </table>
+</form>

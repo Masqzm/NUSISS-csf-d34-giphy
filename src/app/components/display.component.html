@@ -1,1 +1,3 @@
-<p>display works!</p>
+@for (img of images; track $index) {
+    <img [src]="img.url" alt="">
+}

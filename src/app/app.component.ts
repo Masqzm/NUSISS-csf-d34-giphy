@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { FixedHeightImage, SearchCriteria } from './models';
+import { GiphyService } from './giphy.service';
 
 @Component({
   selector: 'app-root',
@@ -7,5 +9,21 @@ import { Component } from '@angular/core';
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  title = 'day34_giphy';
+  private giphySvc = inject(GiphyService)
+
+  images!: FixedHeightImage[]
+
+  whenQuerySearch($event: SearchCriteria) {
+    console.info('>>> SearchCriteria: ', $event)
+
+    this.giphySvc.getGiphyFixedHtImg($event).then(result => {
+      console.info('>>> PROMISE result: ', result)
+
+      this.images = result
+    })
+    .catch(err => { 
+      console.info('>>> error: ', err) 
+      alert(`ERROR: ${JSON.stringify(err)}`)
+    })
+  }
 }
